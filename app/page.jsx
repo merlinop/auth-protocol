@@ -1,57 +1,87 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+
+import { useState } from "react"
+import Link from "next/link"
 
 export default function Home() {
+  const [details, setDetails] = useState({
+    name: "",
+    username: "",
+    password: "",
+    email: "",
+  })
+
+    // handle Login
+    const handleLogin = (e) => {
+      const {name, value} = e.target
+      setDetails((prev) => {
+          return {...prev, [name]: value}
+      })
+  }
+  // Submit
+  const handleSubmit = (e) => {
+      e.preventDefault()
+  }
+
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js 13!</a>
-        </h1>
+      <div className="w-full h-screen items-center justify-center flex flex-col shadow-xl drop-shadow-md bg-orange-400">
+          <form className="border-transparent  w-[30%] min-w-[300px] h-[60%] mx-auto flex flex-col p-6 pt-12 rounded-l-[25%] rounded-r-md items-center justify-between shadow-lg bg-gray-100" onSubmit={handleSubmit}>
+            {/* Title Label */}
+              <label className="text-2xl text-gray-700 font-bold ">Register Here</label>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
+              {/*Name input  */}
+              <input
+                     type="text" 
+                     name="name"
+                     placeholder="Name"
+                     value={details.name}
+                     onChange={handleLogin}
+                     className="py-1 px-2 rounded-md bg-white outline-gray-400 border-gray-300 border-2 font-light text-sm w-3/4 mx-auto shadow-md"
 
-        <div className={styles.grid}>
-          <a href="https://beta.nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js 13</p>
-          </a>
+                     />
+              {/*Username input  */}
+              <input
+                     type="text" 
+                     name="username"
+                     placeholder="Username"
+                     value={details.username}
+                     onChange={handleLogin}
+                     className="py-1 px-2 rounded-md bg-white outline-gray-400 border-gray-300 border-2 font-light text-sm w-3/4 mx-auto shadow-md"
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Explore the Next.js 13 playground.</p>
-          </a>
+                     />
+              {/*Password input  */}
+              <input
+                     type="password" 
+                     name="password"
+                     placeholder="Password"
+                     value={details.password}
+                     onChange={handleLogin}
+                     className="py-1 px-2 rounded-md bg-white outline-gray-400 border-gray-300 border-2 font-light text-sm w-3/4 mx-auto shadow-md"
 
-          <a
-            href="https://vercel.com/templates/next.js/app-directory?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>Deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
-      </main>
+                     />
+              {/*Email input  */}
+              <input
+                     type="text" 
+                     name="email"
+                     placeholder="Email"
+                     value={details.email}
+                     onChange={handleLogin}
+                     className="py-1 px-2 rounded-md bg-white outline-gray-400 border-gray-300 border-2 font-light text-sm w-3/4 mx-auto shadow-md"
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
+                     />
+
+                <div className="w-full flex flex-col items-center ">
+                  {/* Signup Button */}
+                    <button className="border-transparent py-1 px-8 rounded-lg text-white bg-orange-600 shadow-lg font-semibold tracking-wider duration-150 ease-out hover:bg-orange-400 hover:text-white/70 ">Signup</button>
+                    
+                    <div className="flex mt-2 items-center gap-1">
+                    <p className=" text-gray-400 text-sm">Have an account already?</p>
+                    <Link href={"/login"}>
+                      <p className="text-orange-500 text-sm font-normal hover:text-orange-900"> Log in </p>
+                    </Link>
+                    </div>
+                  </div>     
+          </form>
+      </div>
   )
 }
